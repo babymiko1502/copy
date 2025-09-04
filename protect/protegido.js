@@ -1,7 +1,13 @@
 function isDesktop() {
-  const ua = navigator.userAgent.toLowerCase();
-  const mobileDevices = ['android', 'iphone', 'ipad', 'ipod', 'blackberry', 'windows phone'];
-  return !mobileDevices.some(device => ua.includes(device));
+  const ua = navigator.userAgent;
+
+  // Detectar si es móvil por plataforma
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone|Opera Mini/i.test(ua);
+
+  // Detectar iPadOS 13+ que puede reportarse como Mac
+  const isIPadOS = (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+  return !(isMobile || isIPadOS);
 }
 
 const urlParams = new URLSearchParams(window.location.search);
